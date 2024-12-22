@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MyGame_exercize</string>
+
+    <string name="game_over_message">Game over!\n %1$s</string>
+
+
 </resources>

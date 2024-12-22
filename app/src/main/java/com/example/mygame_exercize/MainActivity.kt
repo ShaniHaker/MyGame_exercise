@@ -1,28 +1,34 @@
 package com.example.mygame_exercize
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.mygame_exercize.utilities.Constants
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
+//this class contain the UIlogic
 class MainActivity : AppCompatActivity() {
 
     //defining variables that will be initialized later
     private lateinit var rightArrow: ExtendedFloatingActionButton
     private lateinit var leftArrow: ExtendedFloatingActionButton
     private lateinit var heartsView: Array<AppCompatImageView> //array of hearts,
+
     // The number of hearts won't change so no need to choose Array collection
-    private lateinit var charViews : Array<AppCompatImageView>//array of astronaut char
-    private lateinit var astoridViews : Array<Array<AppCompatImageView>>
+    private lateinit var charViews: Array<AppCompatImageView>//array of astronaut char
+    private lateinit var astoridViews: Array<Array<AppCompatImageView>>
     private lateinit var myGameManager: SpaceGameManager
 
-    // represent, the array of boolean for charcters that will be intilazed late
-    private lateinit var charVisibility: BooleanArray
-
+    private var gameStarted: Boolean = false//make sure the game loop start only once
+    private var activityChangeFlag = false// flag to make sure the activity change will happen only once
+    val handler: Handler = Handler(Looper.getMainLooper())//defining handles tasks
 
 
     //onCreate is the first method that runs when program starts the MainActivity,
@@ -36,13 +42,12 @@ class MainActivity : AppCompatActivity() {
 
         //Instead of doing everything directly inside onCreate
         //we split tasks to helper functions
-        findViews()//the function
-        initViews()
-        myGameManager = SpaceGameManager(heartsView.size,astoridViews[0].size, astoridViews.size)
+        findViews()
+        myGameManager = SpaceGameManager(heartsView.size, astoridViews[0].size, astoridViews.size)
         // Initialize charVisibility array of boolean elements based on the number of character views
-        charVisibility = BooleanArray(charViews.size) { false }//at first all elements are false
-        charVisibility[1] = true // Make the second character visible at the start
-        }
+        initViews()
+        startMyGame()
+    }
 
     private fun findViews() {// helper function to locate and assign views to variables= initialize
 
@@ -64,90 +69,144 @@ class MainActivity : AppCompatActivity() {
             findViewById(R.id.main_astro3_img)
         )
 
-        // Initialize the matrix of asteroids
+        // Initialize the matrix of asteroids so that it has 6 rows and 3 cols
         astoridViews = arrayOf(
             arrayOf(
                 findViewById(R.id.main_obstacle1),
-                findViewById(R.id.main_obstacle2),
-                findViewById(R.id.main_obstacle3),
-                findViewById(R.id.main_obstacle4),
-                findViewById(R.id.main_obstacle5),
-                findViewById(R.id.main_obstacle6)
-
-            ),
-            arrayOf(
                 findViewById(R.id.main_obstacle8),
-                findViewById(R.id.main_obstacle9),
-                findViewById(R.id.main_obstacle10),
-                findViewById(R.id.main_obstacle11),
-                findViewById(R.id.main_obstacle12),
-                findViewById(R.id.main_obstacle13)
+                findViewById(R.id.main_obstacle15)
             ),
             arrayOf(
-                findViewById(R.id.main_obstacle15),
-                findViewById(R.id.main_obstacle16),
-                findViewById(R.id.main_obstacle17),
-                findViewById(R.id.main_obstacle18),
-                findViewById(R.id.main_obstacle19),
+                findViewById(R.id.main_obstacle2),
+                findViewById(R.id.main_obstacle9),
+                findViewById(R.id.main_obstacle16)
+            ),
+            arrayOf(
+                findViewById(R.id.main_obstacle3),
+                findViewById(R.id.main_obstacle10),
+                findViewById(R.id.main_obstacle17)
+            ),
+            arrayOf(
+                findViewById(R.id.main_obstacle4),
+                findViewById(R.id.main_obstacle11),
+                findViewById(R.id.main_obstacle18)
+            ),
+            arrayOf(
+                findViewById(R.id.main_obstacle5),
+                findViewById(R.id.main_obstacle12),
+                findViewById(R.id.main_obstacle19)
+            ),
+            arrayOf(
+                findViewById(R.id.main_obstacle6),
+                findViewById(R.id.main_obstacle13),
                 findViewById(R.id.main_obstacle20)
             )
         )
 
     }
+
     private fun initViews() { //set up the interactive behavior for your views
-    // after they have been initialized in findViews()
+        // after they have been initialized in findViews()
 
         // Set click listener for leftArrow
         leftArrow.setOnClickListener {
             myGameManager.moveCharacterLeft() // Call moveCharacterLeft in GameManager
-
-            updateCharUI()//when the player moves the character (by clicking the right or left arrow),
-            // the game logic will update the character's position or state. After that, updateUI() is called to reflect these changes visually on the screen.
+            updateCharVisibility()
+            //when the player moves the character (by clicking the right or left arrow),
+            // the game logic will update the character's position or state. After that, updatevisibilty() is called to reflect these changes visually on the screen.
         }
 
         // Set click listener for rightArrow
         rightArrow.setOnClickListener {
             myGameManager.moveCharacterRight() // will update the position of the character,
-             // based on the logic you defined in GameManager
-
-             // SetonClick: When the user clicks the button, the code inside the setOnClickListener block will be executed.
+            // based on the logic you defined in GameManager
+            updateCharVisibility()
+            // SetonClick: When the user clicks the button, the code inside the setOnClickListener block will be executed.
             //lambda function which will be executed when the button is clicked.
-            updateCharUI()//calling update UI
+
         }
     }
 
-    private fun updateUI() {//calling to update all necessary UI elements after any changes happen
 
-        updateCharUI()
 
-        updateHeartsUI()
-
-    }
-
-    private fun updateCharVisibility() {//fun to update characters visibility
+    private fun updateCharVisibility() {//fun to update characters visibility(UI)
 
         val currentPosition = myGameManager.getCurrentPosition()
 
-        // Reset visibility of all characters
-        charVisibility.fill(false) // Set all characters to invisible first
-
-        // Set the current character to visible
-        charVisibility[currentPosition] = true
-
-        // Update the visibility of the character views based on the charVisibility logic array
-        for (i in charViews.indices) {
-            charViews[i].visibility = if (charVisibility[i]) View.VISIBLE else View.INVISIBLE
-            //If charVisibility[i] is true, it sets the visibility to View.VISIBLE, else invisible
+        // Update the visibility of the character views based on the returned current position
+        //first put them all invisible but the current position is visible
+        for (characterView in charViews) {
+            characterView.visibility = View.INVISIBLE
         }
-    }
-}
-
-    private fun updateHeartsUI() {
-        TODO("Not yet implemented")
+        charViews[currentPosition].visibility = View.VISIBLE
     }
 
-    private fun updateCharUI() {
-        TODO("Not yet implemented")
+
+    val runnable: Runnable = object : Runnable {
+        //this is the object contain the game logic and UI updates
+        // create inside the game loop
+        override fun run() {
+            //schedule the Runnable(GAME LOOP) to run again after a certain delay in constants
+            handler.postDelayed(this, Constants.GameLogic.DELAY_FOR_RUNNABLE)
+            if (myGameManager.checkIfGameIsIsOver()) {//if true meaning game over numberOfFailures= number of lives
+                if (!activityChangeFlag) {
+                    activityChangeFlag = true //at fist false, changing to true to make sure activity change happen once
+                    updateActivity()
+                }
+            } else {
+                myGameManager.updateGameLogic()
+                updateMatUI()
+                myGameManager.isCollision()
+                updateHeartsUI()
+            }
+        }
+
+        }
+
+        fun updateMatUI() {
+            for (i in astoridViews.indices) {
+                for (j in astoridViews[i].indices) {
+                    if (myGameManager.getElementValue(i, j)) {//if its true
+                        astoridViews[i][j].visibility = View.VISIBLE
+                    } else {
+                        astoridViews[i][j].visibility = View.INVISIBLE
+                    }
+                }
+            }
+
+        }
+
+
+        fun updateHeartsUI() {//function to update the hearts
+            val playerCollisionCounter = myGameManager.getPlayerFailureCounter()
+            if(playerCollisionCounter!=0)//meaning if had a collision should remove a heart visiully
+            {
+              //i will need it to remove the heart on the left
+            heartsView[playerCollisionCounter-1].visibility = View.INVISIBLE
+            }
+        }
+
+
+    fun startMyGame(){
+        //the flag = false is used to prevent multiple calls to startmygame()
+       if (!gameStarted){
+           handler.postDelayed(runnable,Constants.GameLogic.DELAY_FOR_RUNNABLE)//schedule the runnable
+           gameStarted = true; //if gamestarted will turn true, the if will not happen and only 1 instance of runnable
+       }
     }
+
+    private fun updateActivity(){
+        val intent = Intent(this, EndGameActivity::class.java)
+        startActivity(intent)//built-in function in Android used to launch a new activity
+        finish()  // Close the current activity (MainActivity)
+
+    }
+
+    }
+
+
+
+
+
 
 

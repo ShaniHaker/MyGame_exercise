@@ -48,7 +48,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/linear_space"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layoutDirection="ltr"
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/main_astro1_img"
@@ -56,7 +58,7 @@
             android:layout_height="@dimen/char_height"
             android:layout_weight="1"
             android:src="@drawable/astronaut"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/main_astro2_img"
@@ -72,7 +74,7 @@
             android:layout_height="@dimen/char_height"
             android:layout_weight="1"
             android:src="@drawable/astronaut"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -86,6 +88,7 @@
         android:visibility="visible"
         android:gravity="center"
         android:layout_centerInParent="true"
+        android:layoutDirection="ltr"
         >
 
         <!-- First Column: Inner LinearLayout 1 -->
@@ -94,7 +97,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layoutDirection="ltr">
 
             <!-- ImageViews for the first column -->
             <androidx.appcompat.widget.AppCompatImageView
@@ -102,47 +106,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle2"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle3"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle4"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle5"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle6"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -153,7 +157,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layoutDirection="ltr">
 
             <!-- ImageViews for the second column -->
             <androidx.appcompat.widget.AppCompatImageView
@@ -161,47 +166,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle9"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle10"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle11"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle12"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle13"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -212,7 +217,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layoutDirection="ltr">
 
             <!-- ImageViews for the third column -->
             <androidx.appcompat.widget.AppCompatImageView
@@ -220,47 +226,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle16"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle17"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle18"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle19"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle20"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -276,6 +282,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="5dp"
         android:layout_marginRight="16dp"
+        android:layoutDirection="ltr"
         >
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -303,7 +310,7 @@
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
+    <!--
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/main_Score"
         android:layout_width="wrap_content"
@@ -316,5 +323,6 @@
         android:layout_margin="20dp"
         android:textColor="@color/white"
         />
+        -->
 
 </RelativeLayout>
