@@ -10,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.mygame_exercize.utilities.BackgroundMusicPlayer
 import com.example.mygame_exercize.utilities.Constants
+import com.example.mygame_exercize.utilities.SingleSoundPlayer
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.textview.MaterialTextView
 
 //this class contain the UIlogic
 class MainActivity : AppCompatActivity() {
@@ -24,10 +27,13 @@ class MainActivity : AppCompatActivity() {
     // The number of hearts won't change so no need to choose Array collection
     private lateinit var charViews: Array<AppCompatImageView>//array of astronaut char
     private lateinit var astoridViews: Array<Array<AppCompatImageView>>
+    private lateinit var coinsView: Array<Array<AppCompatImageView>>
     private lateinit var myGameManager: SpaceGameManager
+    private lateinit var scoreTextView: MaterialTextView
 
     private var gameStarted: Boolean = false//make sure the game loop start only once
-    private var activityChangeFlag = false// flag to make sure the activity change will happen only once
+    private var activityChangeFlag =
+        false// flag to make sure the activity change will happen only once
     val handler: Handler = Handler(Looper.getMainLooper())//defining handles tasks
 
 
@@ -43,13 +49,16 @@ class MainActivity : AppCompatActivity() {
         //Instead of doing everything directly inside onCreate
         //we split tasks to helper functions
         findViews()
-        myGameManager = SpaceGameManager(heartsView.size, astoridViews[0].size, astoridViews.size)
+        myGameManager = SpaceGameManager(this,heartsView.size, astoridViews[0].size, astoridViews.size)
         // Initialize charVisibility array of boolean elements based on the number of character views
         initViews()
         startMyGame()
     }
 
     private fun findViews() {// helper function to locate and assign views to variables= initialize
+
+        //initialize the textView
+        scoreTextView = findViewById(R.id.main_Score)
 
         // Initialize the arrows buttons
         rightArrow = findViewById(R.id.main_BTN_RIGHT)
@@ -66,40 +75,106 @@ class MainActivity : AppCompatActivity() {
         charViews = arrayOf(
             findViewById(R.id.main_astro1_img),
             findViewById(R.id.main_astro2_img),
-            findViewById(R.id.main_astro3_img)
+            findViewById(R.id.main_astro3_img),
+            findViewById(R.id.main_astro4_img),
+            findViewById(R.id.main_astro5_img)
         )
 
-        // Initialize the matrix of asteroids so that it has 6 rows and 3 cols
+        // Initialize the matrix of asteroids so that it has 6 rows and 5 cols
         astoridViews = arrayOf(
             arrayOf(
                 findViewById(R.id.main_obstacle1),
                 findViewById(R.id.main_obstacle8),
-                findViewById(R.id.main_obstacle15)
+                findViewById(R.id.main_obstacle15),
+                findViewById(R.id.main_obstacle21),
+                findViewById(
+                    (R.id.main_obstacle27)
+                )
             ),
             arrayOf(
                 findViewById(R.id.main_obstacle2),
                 findViewById(R.id.main_obstacle9),
-                findViewById(R.id.main_obstacle16)
+                findViewById(R.id.main_obstacle16),
+                findViewById(R.id.main_obstacle22),
+                findViewById(R.id.main_obstacle28)
             ),
             arrayOf(
                 findViewById(R.id.main_obstacle3),
                 findViewById(R.id.main_obstacle10),
-                findViewById(R.id.main_obstacle17)
+                findViewById(R.id.main_obstacle17),
+                findViewById(R.id.main_obstacle23),
+                findViewById(R.id.main_obstacle29)
             ),
             arrayOf(
                 findViewById(R.id.main_obstacle4),
                 findViewById(R.id.main_obstacle11),
-                findViewById(R.id.main_obstacle18)
+                findViewById(R.id.main_obstacle18),
+                findViewById(R.id.main_obstacle24),
+                findViewById(R.id.main_obstacle30)
             ),
             arrayOf(
                 findViewById(R.id.main_obstacle5),
                 findViewById(R.id.main_obstacle12),
-                findViewById(R.id.main_obstacle19)
+                findViewById(R.id.main_obstacle19),
+                findViewById(R.id.main_obstacle25),
+                findViewById(R.id.main_obstacle31)
             ),
             arrayOf(
                 findViewById(R.id.main_obstacle6),
                 findViewById(R.id.main_obstacle13),
-                findViewById(R.id.main_obstacle20)
+                findViewById(R.id.main_obstacle20),
+                findViewById(R.id.main_obstacle26),
+                findViewById(R.id.main_obstacle32)
+            )
+        )
+
+
+        //init the matrix of the coins, connecting views to variable in the code
+
+        coinsView = arrayOf(
+            arrayOf(
+                findViewById(R.id.main_coin1),
+                findViewById(R.id.main_coin8),
+                findViewById(R.id.main_coin5),
+                findViewById(R.id.main_coin21),
+                findViewById(
+                    (R.id.main_coin27)
+                )
+            ),
+            arrayOf(
+                findViewById(R.id.main_coin2),
+                findViewById(R.id.main_coin9),
+                findViewById(R.id.main_coin16),
+                findViewById(R.id.main_coin22),
+                findViewById(R.id.main_coin28)
+            ),
+            arrayOf(
+                findViewById(R.id.main_coin3),
+                findViewById(R.id.main_coin10),
+                findViewById(R.id.main_coin17),
+                findViewById(R.id.main_coin23),
+                findViewById(R.id.main_coin29)
+            ),
+            arrayOf(
+                findViewById(R.id.main_coin4),
+                findViewById(R.id.main_coin11),
+                findViewById(R.id.main_coin18),
+                findViewById(R.id.main_coin24),
+                findViewById(R.id.main_coin30)
+            ),
+            arrayOf(
+                findViewById(R.id.main_coin5),
+                findViewById(R.id.main_coin12),
+                findViewById(R.id.main_coin19),
+                findViewById(R.id.main_coin25),
+                findViewById(R.id.main_coin31)
+            ),
+            arrayOf(
+                findViewById(R.id.main_coin6),
+                findViewById(R.id.main_coin13),
+                findViewById(R.id.main_coin20),
+                findViewById(R.id.main_coin26),
+                findViewById(R.id.main_coin32)
             )
         )
 
@@ -119,14 +194,13 @@ class MainActivity : AppCompatActivity() {
         // Set click listener for rightArrow
         rightArrow.setOnClickListener {
             myGameManager.moveCharacterRight() // will update the position of the character,
-            // based on the logic you defined in GameManager
+            // based on the logic defined in GameManager
             updateCharVisibility()
             // SetonClick: When the user clicks the button, the code inside the setOnClickListener block will be executed.
             //lambda function which will be executed when the button is clicked.
 
         }
     }
-
 
 
     private fun updateCharVisibility() {//fun to update characters visibility(UI)
@@ -150,7 +224,8 @@ class MainActivity : AppCompatActivity() {
             handler.postDelayed(this, Constants.GameLogic.DELAY_FOR_RUNNABLE)
             if (myGameManager.checkIfGameIsIsOver()) {//if true meaning game over numberOfFailures= number of lives
                 if (!activityChangeFlag) {
-                    activityChangeFlag = true //at fist false, changing to true to make sure activity change happen once
+                    activityChangeFlag =
+                        true //at fist false, changing to true to make sure activity change happen once
                     updateActivity()
                 }
             } else {
@@ -158,54 +233,73 @@ class MainActivity : AppCompatActivity() {
                 updateMatUI()
                 myGameManager.isCollision()
                 updateHeartsUI()
+                updateScoreUI()
             }
         }
 
-        }
-
-        fun updateMatUI() {
-            for (i in astoridViews.indices) {
-                for (j in astoridViews[i].indices) {
-                    if (myGameManager.getElementValue(i, j)) {//if its true
-                        astoridViews[i][j].visibility = View.VISIBLE
-                    } else {
-                        astoridViews[i][j].visibility = View.INVISIBLE
-                    }
-                }
-            }
-
-        }
-
-
-        fun updateHeartsUI() {//function to update the hearts
-            val playerCollisionCounter = myGameManager.getPlayerFailureCounter()
-            if(playerCollisionCounter!=0)//meaning if had a collision should remove a heart visiully
-            {
-              //i will need it to remove the heart on the left
-            heartsView[playerCollisionCounter-1].visibility = View.INVISIBLE
-            }
-        }
-
-
-    fun startMyGame(){
-        //the flag = false is used to prevent multiple calls to startmygame()
-       if (!gameStarted){
-           handler.postDelayed(runnable,Constants.GameLogic.DELAY_FOR_RUNNABLE)//schedule the runnable
-           gameStarted = true; //if gamestarted will turn true, the if will not happen and only 1 instance of runnable
-       }
     }
 
-    private fun updateActivity(){
+    fun updateScoreUI() {
+        scoreTextView.text = "${myGameManager.score}"
+    }
+
+    fun updateMatUI() {
+        for (i in astoridViews.indices) {
+            for (j in astoridViews[i].indices) {
+                val value = myGameManager.getElementValue(i, j)
+                astoridViews[i][j].visibility = if (value == 0) View.VISIBLE else View.INVISIBLE
+                coinsView[i][j].visibility = if (value == 1) View.VISIBLE else View.INVISIBLE
+            }
+        }
+    }
+
+
+    fun updateHeartsUI() {//function to update the hearts
+        val playerCollisionCounter = myGameManager.getPlayerFailureCounter()
+        if (playerCollisionCounter != 0)//meaning if had a collision should remove a heart visiully
+        {
+            //i will need it to remove the heart on the left
+            heartsView[playerCollisionCounter - 1].visibility = View.INVISIBLE
+        }
+    }
+
+
+    fun startMyGame() {
+        //the flag = false is used to prevent multiple calls to startmygame()
+        if (!gameStarted) {
+            handler.postDelayed(
+                runnable,
+                Constants.GameLogic.DELAY_FOR_RUNNABLE
+            )//schedule the runnable
+            gameStarted =
+                true; //if gamestarted will turn true, the if will not happen and only 1 instance of runnable
+        }
+    }
+
+    private fun updateActivity() {
         val intent = Intent(this, EndGameActivity::class.java)
         startActivity(intent)//built-in function in Android used to launch a new activity
         finish()  // Close the current activity (MainActivity)
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        BackgroundMusicPlayer.getInstance().playMusic()
     }
 
+    override fun onPause() {
+        super.onPause()
+        BackgroundMusicPlayer.getInstance().pauseMusic()
+        //This ensures that when the activity goes into the background (for example, if the user switches to another app),
+        // the background music is paused.
+    }
+
+   // If you switch to another app (or go back to the home screen), your app moves to the background,
+// and onPause() is triggered. When the app comes back to the foreground, onResume() is triggered.
 
 
+}
 
 
 
