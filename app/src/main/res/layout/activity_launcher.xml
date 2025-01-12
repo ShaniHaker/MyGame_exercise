@@ -1,12 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LauncherActivity">
+    tools:context=".LauncherActivity"
+    android:background="@drawable/front"
+    >
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/headline_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="@string/start_playing_with_n_astrogo"
+        android:textColor="@color/light_purple"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:letterSpacing="0.05"
+        android:fontFamily="sans-serif-light"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/next_headline_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="230dp"
+        android:text="@string/second_headline"
+        android:textColor="@color/light_purple"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:fontFamily="sans-serif-light"
+
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/choose_setting_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="300dp"
+        android:text="@string/chcoose_settings"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:fontFamily="sans-serif"
+        android:layout_alignParentLeft="true"
+
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/slow_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/slow"
+        android:textColor="@color/black"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:fontFamily="sans-serif"
+        android:background="@color/light_purple"
+        android:layout_toLeftOf="@id/switch_BTN"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="20dp"
+
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/fast_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="6dp"
+        android:text="@string/fast"
+        android:textColor="@color/black"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:fontFamily="sans-serif"
+        android:background="@color/light_purple"
+        android:layout_toRightOf="@id/switch_BTN"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/use_buttons_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="7dp"
+        android:text="Buttons"
+        android:textColor="@color/black"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:fontFamily="sans-serif"
+        android:background="@color/light_purple"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/switch_BTN2"
+        android:layout_below="@+id/slow_text"
+
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tilt_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="7dp"
+        android:text="Tilt"
+        android:textColor="@color/black"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:fontFamily="sans-serif"
+        android:background="@color/light_purple"
+        android:layout_toRightOf="@id/switch_BTN2"
+        android:layout_below="@id/fast_text"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="35dp"
+
+        />
+
+
+    <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_BTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+
+        />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_BTN2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/switch_BTN"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="30dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+            />
+    <!--start game button -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/BTN_startgame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="35dp"
+        android:text="Start Game"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:backgroundTint="#44CABB" />
+
+
+</RelativeLayout>

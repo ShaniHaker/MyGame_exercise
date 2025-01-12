@@ -4,15 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.mygame_exercize.interfaces.TiltCallBack
 import com.example.mygame_exercize.utilities.BackgroundMusicPlayer
 import com.example.mygame_exercize.utilities.Constants
 import com.example.mygame_exercize.utilities.SingleSoundPlayer
+import com.example.mygame_exercize.utilities.TiltDetector
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textview.MaterialTextView
 
@@ -30,6 +33,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var coinsView: Array<Array<AppCompatImageView>>
     private lateinit var myGameManager: SpaceGameManager
     private lateinit var scoreTextView: MaterialTextView
+    private  var selectModeSpeed : Long?= null
+    private lateinit var selectModeControl : String
+    private lateinit var tiltDetector: TiltDetector
 
     private var gameStarted: Boolean = false//make sure the game loop start only once
     private var activityChangeFlag =
@@ -45,14 +51,20 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         // Set the layout for this activity
         setContentView(R.layout.activity_main) //Load the activity layout using setContentView
+        //first extract from bundle
+        selectModeSpeed = intent.extras?.getLong(Constants.BundleKeys.SPEED_MODE_KEY)!!
+        selectModeControl=intent.extras?.getString(Constants.BundleKeys.CONTROL_MODE_KEY)!!
+
+
 
         //Instead of doing everything directly inside onCreate
         //we split tasks to helper functions
         findViews()
         myGameManager = SpaceGameManager(this,heartsView.size, astoridViews[0].size, astoridViews.size)
         // Initialize charVisibility array of boolean elements based on the number of character views
+        initTiltDetector()
         initViews()
-        startMyGame()
+        //after that the on resume() called automatically
     }
 
     private fun findViews() {// helper function to locate and assign views to variables= initialize
@@ -181,24 +193,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() { //set up the interactive behavior for your views
-        // after they have been initialized in findViews()
+        // after they have been initialized in findViews() connected between the xml to the code
 
-        // Set click listener for leftArrow
-        leftArrow.setOnClickListener {
-            myGameManager.moveCharacterLeft() // Call moveCharacterLeft in GameManager
-            updateCharVisibility()
-            //when the player moves the character (by clicking the right or left arrow),
-            // the game logic will update the character's position or state. After that, updatevisibilty() is called to reflect these changes visually on the screen.
+        //only if the play mode is buttons then need to activate the buttons
+        if(selectModeControl == Constants.PlayModes.BUTTONS) {
+
+            Log.d("condition", "initViews:  entred to the if button to move left and right")
+            // Set click listener for leftArrow
+            leftArrow.setOnClickListener {
+                myGameManager.moveCharacterLeft() // Call moveCharacterLeft in GameManager
+                updateCharVisibility()
+                //when the player moves the character (by clicking the right or left arrow),
+                // the game logic will update the character's position or state. After that, updatevisibilty() is called to reflect these changes visually on the screen.
+            }
+
+
+            // Set click listener for rightArrow
+            rightArrow.setOnClickListener {
+                myGameManager.moveCharacterRight() // will update the position of the character,
+                // based on the logic defined in GameManager
+                updateCharVisibility()
+                // SetonClick: When the user clicks the button, the code inside the setOnClickListener block will be executed.
+                //lambda function which will be executed when the button is clicked.
+
+            }
         }
-
-        // Set click listener for rightArrow
-        rightArrow.setOnClickListener {
-            myGameManager.moveCharacterRight() // will update the position of the character,
-            // based on the logic defined in GameManager
-            updateCharVisibility()
-            // SetonClick: When the user clicks the button, the code inside the setOnClickListener block will be executed.
-            //lambda function which will be executed when the button is clicked.
-
+        else{
+            tiltDetector.stop()
+            leftArrow.visibility = View.INVISIBLE
+            rightArrow.visibility = View.INVISIBLE
         }
     }
 
@@ -221,9 +244,9 @@ class MainActivity : AppCompatActivity() {
         // create inside the game loop
         override fun run() {
             //schedule the Runnable(GAME LOOP) to run again after a certain delay in constants
-            handler.postDelayed(this, Constants.GameLogic.DELAY_FOR_RUNNABLE)
-            if (myGameManager.checkIfGameIsIsOver()) {//if true meaning game over numberOfFailures= number of lives
-                if (!activityChangeFlag) {
+            handler.postDelayed(this, selectModeSpeed!!)
+            if(myGameManager.checkIfGameIsIsOver()) {//if true meaning game over numberOfFailures= number of lives
+                if(!activityChangeFlag) {
                     activityChangeFlag =
                         true //at fist false, changing to true to make sure activity change happen once
                     updateActivity()
@@ -264,17 +287,17 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun startMyGame() {
+    //fun startMyGame() {
         //the flag = false is used to prevent multiple calls to startmygame()
-        if (!gameStarted) {
-            handler.postDelayed(
-                runnable,
-                Constants.GameLogic.DELAY_FOR_RUNNABLE
-            )//schedule the runnable
-            gameStarted =
-                true; //if gamestarted will turn true, the if will not happen and only 1 instance of runnable
-        }
-    }
+        //if (!gameStarted) {
+            //handler.postDelayed(
+               // runnable,
+             //   Constants.GameLogic.DELAY_FOR_RUNNABLE
+           // )//schedule the runnable
+         //   gameStarted =
+       //         true; //if gamestarted will turn true, the if will not happen and only 1 instance of runnable
+     //   }
+   // }
 
     private fun updateActivity() {
         val intent = Intent(this, EndGameActivity::class.java)
@@ -285,11 +308,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        BackgroundMusicPlayer.getInstance().playMusic()
+        if(!gameStarted && !myGameManager.checkIfGameIsIsOver()){
+            if(selectModeControl == Constants.PlayModes.TILT)
+                tiltDetector.start() //check if game didn't start yet and not over, start tilt sensors
+                handler.postDelayed(runnable,selectModeSpeed!!)//defines the delay according to what user picked
+                BackgroundMusicPlayer.getInstance().playMusic()
+                gameStarted = true
+
+        }
     }
 
     override fun onPause() {
         super.onPause()
+        if(selectModeControl ==Constants.PlayModes.TILT)
+            tiltDetector.stop()//when game stop or no motion tilt stop for resources
+
+            handler.removeCallbacks(runnable)
+        gameStarted=false
         BackgroundMusicPlayer.getInstance().pauseMusic()
         //This ensures that when the activity goes into the background (for example, if the user switches to another app),
         // the background music is paused.
@@ -298,6 +333,31 @@ class MainActivity : AppCompatActivity() {
    // If you switch to another app (or go back to the home screen), your app moves to the background,
 // and onPause() is triggered. When the app comes back to the foreground, onResume() is triggered.
 
+
+    private fun initTiltDetector() {
+        tiltDetector = TiltDetector(
+            context = this,
+            tiltCallback = object : TiltCallBack {
+
+                override fun tiltLeft() {
+                    myGameManager.moveCharacterLeft()
+                    updateCharVisibility()
+                }
+
+                override fun tiltRight() {
+                    myGameManager.moveCharacterRight()
+                    updateCharVisibility()
+                }
+
+                override fun tiltUp() {
+                }
+
+                override fun tiltDown() {
+                }
+
+            }
+        )
+    }
 
 }
 
