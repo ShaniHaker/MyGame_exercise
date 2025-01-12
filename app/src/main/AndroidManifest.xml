@@ -27,7 +27,7 @@
         <!-- Other activities -->
         <activity
             android:name=".EndGameActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
