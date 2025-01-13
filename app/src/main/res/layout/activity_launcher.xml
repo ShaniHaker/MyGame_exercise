@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".LauncherActivity"
     android:background="@drawable/front"
+    android:layoutDirection="ltr"
     >
 
     <com.google.android.material.textview.MaterialTextView
@@ -33,7 +34,7 @@
         android:layout_marginTop="230dp"
         android:text="@string/second_headline"
         android:textColor="@color/light_purple"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:letterSpacing="0.05"
         android:fontFamily="sans-serif-light"
@@ -165,7 +166,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="55dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="35dp"
         android:text="Start Game"

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.mygame_exercize.utilities.AlertManager
 import com.example.mygame_exercize.utilities.Constants
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
@@ -16,8 +17,8 @@ class LauncherActivity : AppCompatActivity() {
     private lateinit var startGame_BTN: ExtendedFloatingActionButton
     private lateinit var speed_Switch: SwitchCompat //slow or fast toggle
     private lateinit var control_Switch: SwitchCompat // buttons or tilt toggle
-    private var selectModeSpeed: Long? = null
-    private var selectModeControl: String? = null
+    private var selectModeSpeed: Long? = Constants.Difficulties.MORE_DELAY
+    private var selectModeControl: String? = Constants.PlayModes.BUTTONS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +37,12 @@ class LauncherActivity : AppCompatActivity() {
         //control_Switch.isChecked = false
 
         speed_Switch.setOnCheckedChangeListener { buttonView, isChecked -> //to listen to changes of the switched and by that decide the game mode
-            if (isChecked) {//if its true=>circle is on the right
+            if(isChecked) {//if its true=>circle is on the right
                 selectModeSpeed = Constants.Difficulties.LESS_DELAY
+                AlertManager.getInstance().toast("u chose fast option, good luck")
             } else {//the thumb is on the left side
                 selectModeSpeed = Constants.Difficulties.MORE_DELAY//LONG!
+                AlertManager.getInstance().toast("slow is the safest option")
             }
 
         }
@@ -47,9 +50,11 @@ class LauncherActivity : AppCompatActivity() {
         control_Switch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {//if true than is on tilt by phone motion
                 selectModeControl = Constants.PlayModes.TILT
+                AlertManager.getInstance().toast("you chose tilt option")
             } else {
                 selectModeControl = Constants.PlayModes.BUTTONS
                 Log.d("switch control", "initView: entered to the button ")
+                AlertManager.getInstance().toast("you chose the buttons option")
             }
         }
 

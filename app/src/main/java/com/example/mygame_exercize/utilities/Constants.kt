@@ -15,7 +15,9 @@ class Constants {
     }
 
 
+
     object BundleKeys {
+        const val SCORE_KEY = "SCORE_KEY"
         const val SPEED_MODE_KEY = "SPEED_MODE_KEY"
         const val CONTROL_MODE_KEY = "CONTROL_MODE_KEY"
     }
@@ -24,5 +26,9 @@ class Constants {
 
         const val MORE_DELAY : Long = 900L
         const val LESS_DELAY : Long = 500L
+    }
+
+    object SPKeys{
+        const val SCORES_KEY = "SCORES_KEY"
     }
 }

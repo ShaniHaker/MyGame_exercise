@@ -3,6 +3,7 @@ package com.example.mygame_exercize
 import android.app.Application
 import com.example.mygame_exercize.utilities.AlertManager
 import com.example.mygame_exercize.utilities.BackgroundMusicPlayer
+import com.example.mygame_exercize.utilities.SharedPreferencesManager
 
 class MyApp : Application() {
 
@@ -15,6 +16,7 @@ class MyApp : Application() {
         BackgroundMusicPlayer.init(this)
         //The BackgroundMusicPlayer class uses a singleton pattern, meaning only one instance of this class will exist throughout the app's lifecycle.
         // init(context) ensures that the context is set up properly before using the player.
+        SharedPreferencesManager.init(this)
         BackgroundMusicPlayer.getInstance().setResourceId(R.raw.background_music)
 
 

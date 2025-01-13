@@ -12,8 +12,10 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.mygame_exercize.interfaces.TiltCallBack
+import com.example.mygame_exercize.scoreData.Score
 import com.example.mygame_exercize.utilities.BackgroundMusicPlayer
 import com.example.mygame_exercize.utilities.Constants
+import com.example.mygame_exercize.utilities.SharedPreferencesManager
 import com.example.mygame_exercize.utilities.SingleSoundPlayer
 import com.example.mygame_exercize.utilities.TiltDetector
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -249,7 +251,7 @@ class MainActivity : AppCompatActivity() {
                 if(!activityChangeFlag) {
                     activityChangeFlag =
                         true //at fist false, changing to true to make sure activity change happen once
-                    updateActivity()
+                    updateActivity(myGameManager.score)
                 }
             } else {
                 myGameManager.updateGameLogic()
@@ -299,11 +301,21 @@ class MainActivity : AppCompatActivity() {
      //   }
    // }
 
-    private fun updateActivity() {
+    private fun updateActivity(score: Int) {
+        savePlayerScores("Shani", score)
         val intent = Intent(this, EndGameActivity::class.java)
+        var bundle = Bundle()
+        bundle.putInt(Constants.BundleKeys.SCORE_KEY,score)
+        intent.putExtras(bundle)
         startActivity(intent)//built-in function in Android used to launch a new activity
         finish()  // Close the current activity (MainActivity)
 
+    }
+
+    private fun savePlayerScores(playerName: String, score: Int){
+        val sharedPreferencesManager = SharedPreferencesManager.getInstance()
+        sharedPreferencesManager.addScore(Score(playerName,score, longitude = 8, latitude = 5))//from where the grade is geografic
+        Log.d("entred to score","score")
     }
 
     override fun onResume() {
@@ -320,7 +332,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        if(selectModeControl ==Constants.PlayModes.TILT)
+        if (selectModeControl ==Constants.PlayModes.TILT)
             tiltDetector.stop()//when game stop or no motion tilt stop for resources
 
             handler.removeCallbacks(runnable)

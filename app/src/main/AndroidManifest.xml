@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MyGame_exercize"
         tools:targetApi="31">
         <activity
+            android:name=".ScoreAndMapActivity"
+            android:exported="false" />
+        <activity
             android:name=".LauncherActivity"
             android:exported="true">
             <intent-filter>
@@ -23,8 +26,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- Other activities -->
+        </activity> <!-- Other activities -->
         <activity
             android:name=".EndGameActivity"
             android:exported="true" />
