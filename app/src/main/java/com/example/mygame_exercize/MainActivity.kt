@@ -332,7 +332,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        if (selectModeControl ==Constants.PlayModes.TILT)
+        if(selectModeControl ==Constants.PlayModes.TILT)
             tiltDetector.stop()//when game stop or no motion tilt stop for resources
 
             handler.removeCallbacks(runnable)
