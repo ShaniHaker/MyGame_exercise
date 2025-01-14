@@ -1,50 +1,45 @@
 package com.example.mygame_exercize
 
 import android.os.Bundle
-import android.widget.FrameLayout
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.mygame_exercize.fragments.GoogleMapFragment
 import com.example.mygame_exercize.fragments.PlayerScoresFragment
+import com.example.mygame_exercize.interfaces.HighScoreItemClicked
+import com.example.mygame_exercize.R
 
-class ScoreAndMapActivity : AppCompatActivity() {
+class ScoreAndMapActivity : AppCompatActivity(), HighScoreItemClicked {
 
-    private lateinit var frameofScores : FrameLayout
-    private lateinit var frameOfMap :FrameLayout
-    private lateinit var playerScoresFragment: PlayerScoresFragment //name of object of type of class PlayerScoresFragment inherit from Fragment class
-
-    //need to create the fragment for map(class,xml) inherits from GoggleMap  and then create instance here
-
-
+    private lateinit var playerScoresFragment: PlayerScoresFragment
+    private lateinit var googleMapFragment: GoogleMapFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_score_and_map)
+        Log.d("ScoreAndMapActivity", "onCreate started")
 
-        findViews()
-        initViews()
-
-
+        try {
+            initFragments()
+            Log.d("ScoreAndMapActivity", "Fragments initialized successfully")
+        } catch (e: Exception) {
+            Log.e("ScoreAndMapActivity", "Error initializing fragments", e)
+            e.printStackTrace()
+        }
     }
 
-    private fun initViews() {
-        //initialize objects
-        playerScoresFragment = PlayerScoresFragment() //calling constructor create instance of it
-        supportFragmentManager //responsible for adding or removing fragments to the defined xml Frame_scores
-            .beginTransaction()
-            .add(R.id.FRAME_score,playerScoresFragment)//connecting in the transaction have to!
+    private fun initFragments() {
+        playerScoresFragment = PlayerScoresFragment()
+        googleMapFragment = GoogleMapFragment()
+
+        playerScoresFragment.setItemClickListener(this)
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.FRAME_score, playerScoresFragment)
+            .replace(R.id.Frame_map, googleMapFragment)
             .commit()
-
-
-
     }
 
-    private fun findViews() {//connecting from xml to code
-        frameofScores = findViewById(R.id.FRAME_score)
-        frameOfMap = findViewById(R.id.Frame_map)
-        //fragments isn't like view in xml, so we don't connect it, its part of activity
-
+    override fun highScoreItemClicked(lat: Double, lon: Double) {
+        googleMapFragment.focusOnLocation(lat, lon)
     }
 }

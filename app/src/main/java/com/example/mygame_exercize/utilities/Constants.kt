@@ -31,4 +31,12 @@ class Constants {
     object SPKeys{
         const val SCORES_KEY = "SCORES_KEY"
     }
+
+    object File{
+        const val SHARED_PREF = "SHARED PREF"
+    }
+
+    object PremittionLocation {
+        const val LOCATION_PERMISSION_REQUEST= 1001
+    }
 }

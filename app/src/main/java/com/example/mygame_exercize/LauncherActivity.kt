@@ -1,11 +1,15 @@
 package com.example.mygame_exercize
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.mygame_exercize.utilities.AlertManager
@@ -15,6 +19,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 class LauncherActivity : AppCompatActivity() {
 
     private lateinit var startGame_BTN: ExtendedFloatingActionButton
+    private lateinit var seeRecordsBTN : ExtendedFloatingActionButton
     private lateinit var speed_Switch: SwitchCompat //slow or fast toggle
     private lateinit var control_Switch: SwitchCompat // buttons or tilt toggle
     private var selectModeSpeed: Long? = Constants.Difficulties.MORE_DELAY
@@ -26,8 +31,25 @@ class LauncherActivity : AppCompatActivity() {
         setContentView(R.layout.activity_launcher)
         findViews()
         initView()
+        accessUserLocation()
 
 
+
+    }
+    //check and request location permissions from the user
+    private fun accessUserLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
+                Constants.PremittionLocation.LOCATION_PERMISSION_REQUEST
+            )
+        }
     }
 
     private fun initView() {
@@ -62,9 +84,17 @@ class LauncherActivity : AppCompatActivity() {
             if (selectModeSpeed !=null && selectModeControl != null){//as long as selectedMode isn't null, then change the activity
                 changeActivity()
         }
-
 }
+        seeRecordsBTN.setOnClickListener {
+            recordsChangeActivity()
+        }
 
+    }
+
+    private fun recordsChangeActivity() {//function to move from launcher to records activity
+        val intent = Intent(this, ScoreAndMapActivity::class.java)//sending to MainActivity specificly
+        startActivity(intent)
+        finish()
     }
 
     private fun changeActivity() {
@@ -84,5 +114,6 @@ class LauncherActivity : AppCompatActivity() {
         speed_Switch = findViewById(R.id.switch_BTN)
         control_Switch = findViewById(R.id.switch_BTN2)
         startGame_BTN = findViewById(R.id.BTN_startgame)
+        seeRecordsBTN = findViewById(R.id.launcher_move_records2)
     }
 }

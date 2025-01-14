@@ -120,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="7dp"
+        android:padding="8dp"
         android:text="Tilt"
         android:textColor="@color/black"
         android:textSize="23sp"
@@ -137,42 +137,63 @@
 
 
     <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_BTN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
+        android:id="@+id/switch_BTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
 
         />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_BTN2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/switch_BTN"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="30dp"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-
-
-
-
-            />
-    <!--start game button -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/BTN_startgame"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_BTN2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/switch_BTN"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+
+
+
+
+        />
+    <!--start game button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="55dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="35dp"
-        android:text="Start Game"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        app:backgroundTint="#44CABB" />
+        android:layout_marginBottom="75dp"
+        android:paddingStart="35dp"
+        android:paddingEnd="35dp"
+        android:gravity="bottom">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/BTN_startgame"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Game"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            app:backgroundTint="#44CABB"
+            android:layout_marginRight="35dp"
+            />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/launcher_move_records2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="See Records"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            app:backgroundTint="#44CABB" />
+    </LinearLayout>
+
 
 
 </RelativeLayout>

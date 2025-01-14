@@ -9,6 +9,7 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.mygame_exercize.interfaces.TiltCallBack
@@ -20,6 +21,11 @@ import com.example.mygame_exercize.utilities.SingleSoundPlayer
 import com.example.mygame_exercize.utilities.TiltDetector
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textview.MaterialTextView
+import android.Manifest
+import android.content.pm.PackageManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 
 //this class contain the UIlogic
 class MainActivity : AppCompatActivity() {
@@ -39,6 +45,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var selectModeControl : String
     private lateinit var tiltDetector: TiltDetector
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+
     private var gameStarted: Boolean = false//make sure the game loop start only once
     private var activityChangeFlag =
         false// flag to make sure the activity change will happen only once
@@ -53,6 +62,8 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         // Set the layout for this activity
         setContentView(R.layout.activity_main) //Load the activity layout using setContentView
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
         //first extract from bundle
         selectModeSpeed = intent.extras?.getLong(Constants.BundleKeys.SPEED_MODE_KEY)!!
         selectModeControl=intent.extras?.getString(Constants.BundleKeys.CONTROL_MODE_KEY)!!
@@ -302,7 +313,7 @@ class MainActivity : AppCompatActivity() {
    // }
 
     private fun updateActivity(score: Int) {
-        savePlayerScores("Shani", score)
+        savePlayerScoresAndLocations("Shani", score)
         val intent = Intent(this, EndGameActivity::class.java)
         var bundle = Bundle()
         bundle.putInt(Constants.BundleKeys.SCORE_KEY,score)
@@ -312,16 +323,25 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun savePlayerScores(playerName: String, score: Int){
-        val sharedPreferencesManager = SharedPreferencesManager.getInstance()
-        sharedPreferencesManager.addScore(Score(playerName,score, longitude = 8, latitude = 5))//from where the grade is geografic
-        Log.d("entred to score","score")
+    private fun savePlayerScoresAndLocations(playerName: String, score: Int){
+        fetchPlayerCoordinates { playerLocation ->
+            val sharedPreferencesManager = SharedPreferencesManager.getInstance()
+            sharedPreferencesManager.addScore(
+                Score(
+                    playerName,
+                    score,
+                    playerLocation.longitude ,
+                    playerLocation.latitude
+                )
+            )//from where the grade is geografic
+            Log.d("entred to score", "score")
+        }
     }
 
     override fun onResume() {
         super.onResume()
         if(!gameStarted && !myGameManager.checkIfGameIsIsOver()){
-            if(selectModeControl == Constants.PlayModes.TILT)
+            if (selectModeControl == Constants.PlayModes.TILT)
                 tiltDetector.start() //check if game didn't start yet and not over, start tilt sensors
                 handler.postDelayed(runnable,selectModeSpeed!!)//defines the delay according to what user picked
                 BackgroundMusicPlayer.getInstance().playMusic()
@@ -370,6 +390,35 @@ class MainActivity : AppCompatActivity() {
             }
         )
     }
+
+    private fun fetchPlayerCoordinates(callback: (LatLng) -> Unit) {
+        // Check if the required location permission is granted
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // If permission is not given, return a default location
+            callback(LatLng(0.0, 0.0)) // Default coordinates (latitude: 0.0, longitude: 0.0)
+        } else {
+            // Attempt to retrieve the last known location
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) {
+                        // If the location is successfully retrieved, pass it to the callback
+                        callback(LatLng(location.latitude, location.longitude))
+                    } else {
+                        // If the location is null, return a default location
+                        callback(LatLng(0.0, 0.0)) // Default coordinates (latitude: 0.0, longitude: 0.0)
+                    }
+                }
+                .addOnFailureListener {
+                    // Handle any failure in retrieving the location and return a default location
+                    callback(LatLng(0.0, 0.0)) // Default coordinates (latitude: 0.0, longitude: 0.0)
+                }
+        }
+    }
+
 
 }
 

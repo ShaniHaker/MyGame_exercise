@@ -9,48 +9,60 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mygame_exercize.R
+import com.example.mygame_exercize.interfaces.HighScoreItemClicked
 import com.example.mygame_exercize.scoreData.Score
 import com.example.mygame_exercize.utilities.Constants
 import com.example.mygame_exercize.utilities.SharedPreferencesManager
 
 class PlayerScoresFragment : Fragment() {
-    private lateinit var listOfScores : RecyclerView//recycle View present the Ui of showing list of scores
-    private lateinit var scoreAdapter : ScoreAdapter//connect the data to the list
-    private val scores = mutableListOf<Score>()
+    private lateinit var listOfScores: RecyclerView//recycle View present the Ui of showing list of scores
+    private lateinit var scoreAdapter: ScoreAdapter//connect the data to the list
+    //private val scores = mutableListOf<Score>()
+    private var highScoreItemClickedCallback: HighScoreItemClicked? = null
 
 
-    override fun onCreateView (
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_player_scores,container,false)
+        val view = inflater.inflate(R.layout.fragment_player_scores, container, false)
 
         listOfScores = view.findViewById(R.id.fragment_list_of_scores)
-        listOfScores.layoutManager = LinearLayoutManager(requireContext())
+        listOfScores.layoutManager = LinearLayoutManager(context)
 
-        scoreAdapter = ScoreAdapter(scores)
+        val scores = SharedPreferencesManager.getInstance().getTopScores(10)
+
+        scoreAdapter = ScoreAdapter(scores)//NO NEED TO HOLD IN THE LIST
+        scoreAdapter.highScoreItemClickedCallback = object :HighScoreItemClicked{
+            override fun highScoreItemClicked(lat: Double, lon: Double) {
+                highScoreItemClickedCallback?.highScoreItemClicked(lat,lon)
+            }
+        }
         listOfScores.adapter = scoreAdapter
 
-        loadScores()
-        Log.d("uploaded","u[load")
 
         return view
 
     }
 
-    private fun loadScores() {
+    fun setItemClickListener(listener: HighScoreItemClicked) {
+        highScoreItemClickedCallback = listener
+    }
+}
 
-            val sharedPreferencesManager = SharedPreferencesManager.getInstance()
-            val loadedScores = sharedPreferencesManager.getScores(Constants.SPKeys.SCORES_KEY)
+    //private fun loadScores() {
+
+      //      val sharedPreferencesManager = SharedPreferencesManager.getInstance()
+        //    val loadedScores = sharedPreferencesManager.getScores(Constants.SPKeys.SCORES_KEY)
 
             // Clear the existing list and add loaded scores
-            scores.clear()
-            scores.addAll(loadedScores)
+          //  scores.clear()
+            //scores.addAll(loadedScores)
 
             // Notify adapter about data change
-            scoreAdapter.notifyDataSetChanged()
-        }
-    }
+            //scoreAdapter.notifyDataSetChanged()
+        //}
+    //}
 
 

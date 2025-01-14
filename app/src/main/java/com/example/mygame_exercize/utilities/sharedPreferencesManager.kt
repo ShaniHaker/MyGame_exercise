@@ -7,10 +7,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class SharedPreferencesManager private constructor(context: Context) {
-
-
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(
-        Constants.SPKeys.SCORES_KEY,
+        Constants.File.SHARED_PREF,
         Context.MODE_PRIVATE
     )
     private val gson = Gson()
@@ -36,8 +34,16 @@ class SharedPreferencesManager private constructor(context: Context) {
 
     fun addScore(score: Score) {
         val scores = getScores(Constants.SPKeys.SCORES_KEY).toMutableList()
-        scores.add(score)
-        scores.sortByDescending { it.score }
+        if(scores.size< 10){
+            scores.add(score)}
+        else{//if the list is already 10 size
+            scores.sortByDescending { it.score }//sorting the list
+            if(score.score>scores.last().score){
+                scores.removeAt(scores.size-1)
+                scores.add(score)
+            }
+        }
+        scores.sortByDescending { it.score }//allover sort
         saveScores(scores.take(10))
     }
 
@@ -56,5 +62,9 @@ class SharedPreferencesManager private constructor(context: Context) {
         } else {
             emptyList()
         }
+    }
+
+    fun getTopScores(limit: Int = 10):List<Score>{
+        return getScores(Constants.SPKeys.SCORES_KEY)
     }
 }
