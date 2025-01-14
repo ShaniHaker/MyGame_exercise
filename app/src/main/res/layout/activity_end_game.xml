@@ -24,4 +24,21 @@
         android:lineSpacingExtra="20dp"/>
 
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/move_to_records"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="55dp"
+        android:layout_marginRight="55dp"
+        android:backgroundTint="@color/light_purple"
+        android:text="press to see your records"
+        android:textSize="15sp"
+        android:clickable="true"
+
+
+        />
+
+
 </RelativeLayout>

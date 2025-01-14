@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- creates vertical order between the frames-->
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ScoreAndMapActivity"
+    >
+
+
+<!-- first fragment container of the score-->
+
+    <FrameLayout
+        android:id="@+id/FRAME_score"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/dipper_purple" />
+
+    <!-- second fragment container of the map-->
+
+
+    <FrameLayout
+        android:id="@+id/Frame_map"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/blue_purple" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -46,7 +46,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/linear_space"
+        android:layout_marginBottom="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layoutDirection="ltr"
@@ -66,10 +66,26 @@
             android:layout_height="@dimen/char_height"
             android:layout_weight="1"
             android:src="@drawable/astronaut"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/main_astro3_img"
+            android:layout_width="@dimen/char_width"
+            android:layout_height="@dimen/char_height"
+            android:layout_weight="1"
+            android:src="@drawable/astronaut"
+            android:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/main_astro4_img"
+            android:layout_width="@dimen/char_width"
+            android:layout_height="@dimen/char_height"
+            android:layout_weight="1"
+            android:src="@drawable/astronaut"
+            android:visibility="invisible" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/main_astro5_img"
             android:layout_width="@dimen/char_width"
             android:layout_height="@dimen/char_height"
             android:layout_weight="1"
@@ -110,7 +126,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle2"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -118,7 +134,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle3"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -126,7 +142,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle4"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -134,7 +150,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle5"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -142,7 +158,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle6"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -170,7 +186,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle9"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -178,7 +194,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle10"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -186,7 +202,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle11"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -194,7 +210,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle12"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -202,7 +218,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle13"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -230,7 +246,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle16"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -238,7 +254,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle17"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -246,7 +262,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle18"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -254,7 +270,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle19"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -262,7 +278,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/main_obstacle20"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/obstacle_height"
                 android:src="@drawable/meteor"
@@ -271,7 +287,456 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+
+        <!-- forth Column: Inner LinearLayout 4 -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layoutDirection="ltr">
+
+            <!-- ImageViews for the 4 column -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle21"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle22"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle23"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle24"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle25"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle26"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <!-- fifth Column: Inner LinearLayout 5 -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layoutDirection="ltr">
+
+            <!-- ImageViews for the 5 column -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle27"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle28"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle29"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle30"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle31"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_obstacle32"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/meteor"
+                android:visibility="invisible" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+    <!--coin matrix-->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/main_coin_mat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layoutDirection="ltr"
+        >
+
+        <!-- First Column: Inner LinearLayout 1 -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layoutDirection="ltr">
+
+            <!-- ImageViews for the first column -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin2"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin3"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin4"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin5"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin6"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- Second Column: Inner LinearLayout 2 -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layoutDirection="ltr">
+
+            <!-- ImageViews for the second column -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin8"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin9"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin10"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin11"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin12"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin13"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- Third Column: Inner LinearLayout 3 -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layoutDirection="ltr">
+
+            <!-- ImageViews for the third column -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin15"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin16"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin17"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin18"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin19"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin20"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <!-- forth Column: Inner LinearLayout 4 -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layoutDirection="ltr">
+
+            <!-- ImageViews for the 4 column -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin21"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin22"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin23"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin24"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin25"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin26"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <!-- fifth Column: Inner LinearLayout 5 -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layoutDirection="ltr">
+
+            <!-- ImageViews for the 5 column -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin27"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin28"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin29"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin30"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin31"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/main_coin32"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/obstacle_height"
+                android:src="@drawable/coin"
+                android:visibility="invisible" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
 
     <!--hearts images and linearlayout!-->
 
@@ -310,7 +775,7 @@
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <!--
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/main_Score"
         android:layout_width="wrap_content"
@@ -323,6 +788,6 @@
         android:layout_margin="20dp"
         android:textColor="@color/white"
         />
-        -->
+
 
 </RelativeLayout>
