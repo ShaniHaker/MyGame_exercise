@@ -48,7 +48,6 @@ class BackgroundMusicPlayer private constructor(context: Context){
 
     fun playMusic() {
         if (mediaPlayer == null || !mediaPlayer!!.isPlaying)//Checks if MediaPlayer is null or not playing:
-            //If true, reinitializes the MediaPlayer
             initMediaPlayer()
         try {
             mediaPlayer!!.start() // Starts playback

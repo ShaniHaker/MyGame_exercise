@@ -31,3 +31,5 @@ class MyApp : Application() {
             // the onTerminate() method is called
         }
     }
+    
+}
